@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin @ Photo Studio Login</title>
+    <title>Photo Studio Signin</title>
     <link rel="stylesheet" href="{{ep}}/static/login.css">
 </head>
 <body>
@@ -12,17 +12,21 @@
     {% include "notification.html" %}
     {% include "nav.html" %}
 
+
     <div class="container">
-        <h1>Photo Studio Login | Admin</h1>
+        <h1>Photo Studio</h1>
         <form action="" method="POST">
+            <label for="email">Email: </label>
+            <input type="text" id="email" name="email" required>
+            <label for="display-name">Display Name: </label>
+            <input type="text" id="display-name" name="displayName" required>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
-            <a href="#" class="fp">Forgot Password?</a>
-            <button type="submit">Login As Admin</button>
+            <br>
+            <button type="submit">Signup</button>
         </form>
     </div>
 </body>
 </html>
-

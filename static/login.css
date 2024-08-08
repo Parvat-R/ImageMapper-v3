@@ -1,0 +1,155 @@
+* {
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    position: relative;
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid #fff2;
+    border-radius: 10px;
+    background-color: #F9F7F3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    letter-spacing: .1rem;
+    font-weight: 900;
+    color: #08575e;
+}
+
+label:not(:first-child) {
+    display: block;
+    margin-top: 1.2em;
+}
+
+input,
+textarea#location {
+    width: 95%;
+    padding: 12px;
+    border: 1px solid;
+    border-radius: 10px;
+    background-color: #fff4;
+    color: #fff;
+    font-size: 1em;
+    letter-spacing: .1em;
+    transition: .3s;
+}
+
+input:hover {
+    color: #000000;
+}
+
+button {
+    background-color: #F9F7F3;
+    color: #08575e;
+    border: none;
+    border-radius: 10px;
+    font-weight: bolder;
+    cursor: pointer;
+    font-size: 1.5em;
+    font-family: monospace;
+    padding: .5em 2em;
+    text-align: center;
+    align-self: center;
+    transition: .3s;
+    margin: .5em;
+}
+
+button:hover {
+    background-color: #08575e;
+    color: #f9f7f3;
+}
+
+a {
+    color: #ffffff82;
+    display: block;
+    font-size: .8em;
+    text-decoration: none;
+    text-align: center;
+    align-self: flex-end;
+    padding: 1em;
+}
+
+body {
+    background-color: #F9F7F3;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 400px;
+    width: 80%;
+    border-radius: 10px;
+    background: #231123;
+    padding: 1em;
+}
+
+label {
+    padding: .44em;
+    text-transform: capitalize;
+    color: #f9f7f3;
+    align-self: flex-start;
+}
+
+input:focus {
+    background: #e4f3ff;
+    color: #000;
+}
+
+textarea#location {
+    width: 95%;
+    border-radius: 10px;
+    margin-bottom: 2em;
+}
+
+a.adminLink {
+    opacity: .5;
+    position: absolute;
+    bottom: 2em;
+    right: 6em;
+    padding: 0;
+}
+
+@media screen and (max-width: 500px) {
+    body {
+        font-size: 14px !important;
+    }
+
+    .container {
+        width: 100%;
+        padding: .1em;
+    }
+
+    form {
+        width: 90%;
+    }
+
+    button {
+        margin-bottom: 1em;
+    }
+
+    a.adminLink {
+        opacity: .5;
+        position: absolute;
+        bottom: .3em;
+        right: 3.5em;
+        padding: 0;
+    }
+}
