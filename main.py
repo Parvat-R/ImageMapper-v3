@@ -21,16 +21,38 @@ def before_each_request():
 
 @app.get("/")
 def index():
-    ...
+    render_template("index.html")
 
 
 @app.get("/login")
 def login_get():
-    ...
+    render_template("login.html")
 
 @app.post("/login")
 def login_post():
-    ...
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = hashPassword(request.form.get("password", ""))
+        exists = DB.checkUser(username, password)
+        if not exists:
+            session["error"] = "Invalid Username or Password!"
+            return redirect(url_for("login_post"))
+
+        user = DB.getUserId(username)
+        if user is None:
+            session["error"] = "User Id Fetch Error! Report this to admins."
+            return redirect(url_for("login_post"))
+
+        userSession = DB.createUserSession(user)
+
+        if userSession is None:
+            session["error"] = "Create Session Error! Report this to admins."
+            return redirect(url_for("login_post"))
+
+        session["username"] = username
+        session["sessionid"] = userSession.id
+        session["success"] = "Login Successful!"
+        return redirect(url_for("index"))
 
 
 
