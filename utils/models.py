@@ -14,7 +14,7 @@ def get_function_images(function_id: int):
     )
 
 class DBModel(BaseModel):
-    id: int
+    id: int = -1
 
     def create(self):
         table_name = self.__class__.__name__
@@ -65,7 +65,7 @@ class DBModel(BaseModel):
 
 class Student(DBModel):
     rollno: int
-    dob: datetime.datetime
+    dob: datetime.datetime = datetime.datetime.now()
 
     def create_table(self):
         table_name = self.__class__.__name__
@@ -144,7 +144,7 @@ class Session(BaseModel):
         return session_list
 
 
-class Funtion(DBModel):
+class Function(DBModel):
     name: str
     location: str
     start_on: datetime.datetime = datetime.datetime.now()

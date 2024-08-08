@@ -4,17 +4,20 @@ from flask import (
     request, flash, get_flashed_messages
 )
 import settings
+import utils
+import utils.image_matcher
+import utils.models
 
 app = Flask(__name__)
-app.secret_key = "JOH9cg9g(UG8783eyobO_U_Pz;Jc0y9weubB%ze6DRZcxblMc',]d[\wek[jh]])"
+app.secret_key = "JOH9cg9g(UG8783eyobO_U_Pz;Jc0y9weubB%ze6DRZcxblMc',]d[\\wek[jh]])"
 
 @app.before_request
 def before_each_request():
-    if request.endpoint.startswith("/s"):
+    if request.path.startswith("/s"):
         if not session.get("id", False):
             return redirect(url_for("login"))
 
-    if request.endpoint.startswith("/a"):
+    if request.path.startswith("/a"):
         if not session.get("admin_id", False):
             return redirect(url_for("admin_login"))
 
@@ -26,67 +29,82 @@ def index():
 
 @app.get("/login")
 def login_get():
-    render_template("login.html")
+    return render_template("login.html")
 
 @app.post("/login")
 def login_post():
-    if request.method == "POST":
-        username = request.form.get("username")
-        password = hashPassword(request.form.get("password", ""))
-        exists = DB.checkUser(username, password)
-        if not exists:
-            session["error"] = "Invalid Username or Password!"
-            return redirect(url_for("login_post"))
-
-        user = DB.getUserId(username)
-        if user is None:
-            session["error"] = "User Id Fetch Error! Report this to admins."
-            return redirect(url_for("login_post"))
-
-        userSession = DB.createUserSession(user)
-
-        if userSession is None:
-            session["error"] = "Create Session Error! Report this to admins."
-            return redirect(url_for("login_post"))
-
-        session["username"] = username
-        session["sessionid"] = userSession.id
-        session["success"] = "Login Successful!"
-        return redirect(url_for("index"))
+    rollno = request.form.get("rollno")
+    dob = request.form.get("dob")
+    exists = utils.models.Student(rollno=rollno).get(rollno=rollno, dob=dob)
+    if exists:
+        session["id"] = exists.id
+        session["rollno"] = exists.rollno
+        return redirect(url_for("s_index"))
+    flash("Student not found!")
+    return redirect(url_for("index"))
 
 
 
 @app.get("/admin_login")
 def admin_login_get():
+    
     ...
 
 @app.post("/admin_login")
 def admin_login_post():
-    ...
+    rollno = request.form.get("username")
+    dob = request.form.get("dob")
+    exists = utils.models.Student(rollno=rollno).get(rollno=rollno, dob=dob)
+    if exists:
+        session["id"] = exists.id
+        session["rollno"] = exists.rollno
+        return redirect(url_for("s_index"))
+    flash("Student not found!")
+    return redirect(url_for("index"))
 
 
 
 @app.get("/register")
 def register_get():
-    ...
+    return render_template("register.html")
 
 @app.post("/register")
 def register_post():
-    ...
+    rollno = request.form.get("username")
+    dob = request.form.get("dob")
+    exists = utils.models.Student(rollno=rollno).get(rollno=rollno, dob=dob)
+    if exists:
+        flash("Student not found!", 'error')
+        return redirect(url_for("register_get"))
+    created = utils.models.Student(rollno=rollno, dob=dob).create()
+    session.clear()
+    session["id"] = created.id
+    session["rollno"] = created.rollno
+    flash("Logged in!", 'message')
+    return redirect(url_for("index"))
 
 
 @app.get("/s")
 def s_index():
-    ...
+    student = utils.models.Student(id=session["id"], rollno=session["rollno"])
+    return render_template("s_index.html", student=student)
 
 
 @app.get("/s/f")
 def s_functions():
-    
+    student = utils.models.Student(id=session["id"], rollno=session["rollno"])
+    functions = utils.image_matcher.get_user_functions(student)
+    return render_template("s_functions.html", functions=functions)
+
 
 @app.get("/s/f/<int:function_id>")
 def s_function_view(function_id: int):
-    ...
+    student = utils.models.Student(id=session["id"], rollno=session["rollno"])
+    function = utils.models.Function(id=function_id, name="", location="").get(id=function_id)
+    if not function:
+        return redirect(url_for("s_functions"))
+    files_list = utils.image_matcher.match_images(student, function_id)
+    return render_template("s_function_view", files_list=files_list, )
 
 
 @app.get("/s/scanqr")
