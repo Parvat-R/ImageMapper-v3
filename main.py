@@ -8,6 +8,17 @@ import settings
 app = Flask(__name__)
 
 
+@app.before_request
+def before_each_request():
+    if request.endpoint.startswith("/s"):
+        if not session.get("id", False):
+            return redirect(url_for("login"))
+
+    if request.endpoint.startswith("/a"):
+        if not session.get("admin_id", False):
+            return redirect(url_for("admin_login"))
+
+
 @app.get("/")
 def index():
     ...
