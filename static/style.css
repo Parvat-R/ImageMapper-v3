@@ -1,0 +1,191 @@
+/* Global Styles */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+    
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    color: #337ab7;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #337ab7;
+  }
+  
+  a:hover {
+    color: #23527c;
+  }
+  
+  /* Navigation Bar */
+  
+  .navbar {
+    background-color: #337ab7;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-brand {
+    font-size: 1.5em;
+    color: #fff;
+  }
+  
+  .navbar-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .navbar-nav li {
+    margin-right: 20px;
+  }
+  
+  .navbar-nav a {
+    color: #fff;
+  }
+  
+  .navbar-nav a:hover {
+    color: #ccc;
+  }
+  
+  /* Index Page */
+  
+  .index-hero {
+    background-image: linear-gradient(to bottom, #337ab7, #23527c);
+    background-size: 100% 300px;
+    background-position: 0% 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+  
+  .index-hero h1 {
+    font-size: 3em;
+  }
+  
+  /* Login and Register Pages */
+  
+  .login-register {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-register h2 {
+    margin-top: 0;
+  }
+  
+  .login-register label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .login-register input[type="text"], .login-register input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+  }
+  
+  .login-register input[type="submit"] {
+    background-color: #337ab7;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-register input[type="submit"]:hover {
+    background-color: #23527c;
+  }
+  
+  /* Function Pages */
+  
+  .function-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .function-list li {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .function-list li h2 {
+    margin-top: 0;
+  }
+  
+  .function-list li p {
+    margin-bottom: 20px;
+  }
+  
+  .function-list li a {
+    color: #337ab7;
+  }
+  
+  .function-list li a:hover {
+    color: #23527c;
+  }
+  
+  /* Admin Pages */
+  
+  .admin-dashboard {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-dashboard h2 {
+    margin-top: 0;
+  }
+  
+  .admin-dashboard table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .admin-dashboard th, .admin-dashboard td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .admin-dashboard th {
+    background-color: #337ab7;
+    color: #fff;
+  }
+  
+  .admin-dashboard td a {
+    color: #337ab7;
+  }
+  
+  .admin-dashboard td a:hover {
+    color: #23527c;
+  }
