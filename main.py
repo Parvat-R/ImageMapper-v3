@@ -108,9 +108,21 @@ def s_function_view(function_id: int):
 
 
 @app.get("/s/scanqr")
-def s_scanqr():
+def s_scanqr_get():
     ...
 
+
+@app.post("/s/scanqr")
+def s_scanqr_post():
+    function_id = request.form.get("function_id")
+    student = utils.models.Student(id=session["id"], rollno=session["rollno"])
+    function = utils.models.Function(id=function_id, name="", location="").get(id=function_id)
+    if not function:
+        return redirect(url_for("s_scanqr_get"))
+    
+    utils.models.Session(rollno=student.id).start(function.id)
+    flash("Scanning successful!")
+    return redirect(url_for("s_functions"))
 
 
 @app.get("/a/f")
@@ -120,16 +132,32 @@ def a_functions():
 
 @app.get("/a/f/create")
 def a_function_create_get():
-    ...
+    admin = utils.models.Admin(id=session["id"]).get(id=session["id"])
+    return render_template("a_function_create.html")
 
 @app.post("/a/f/create")
 def a_function_create_post():
-    ...
+    admin = utils.models.Admin(id=session["id"]).get(id=session["id"])
+    name = request.form.get("name")
+    location = request.form.get("location")
+    start_on = request.form.get("start_on")
+    end_on = request.form.get("end_on")
+    created = utils.models.Function(name=name, location=location, start_on=start_on, end_on=end_on).create()
+    flash(f"Function created! id: {created.id}", "message")
+    return redirect(url_for("a_functions"))
 
 
 @app.get("/a/f/<int:function_id>")
 def a_function_view_get(function_id: int):
-    ...
+    admin = utils.models.Admin(id=session["id"]).get(id=session["id"])
+    if not admin.get(id=admin.id):
+        session.clear()
+        flash("Admin not found!")
+        return redirect(url_for("a_login"))
+    
+    function = utils.models.Function(id=function_id).get(id=function_id)
+    function_sessions = utils.models.Session.get_all(function_id)
+    return render_template("a_function_view.html", function=function, function_sessions=function_sessions)
 
 
 @app.post("/a/f/<int:function_id>")
