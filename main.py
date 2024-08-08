@@ -160,21 +160,31 @@ def a_function_view_get(function_id: int):
     return render_template("a_function_view.html", function=function, function_sessions=function_sessions)
 
 
-@app.post("/a/f/<int:function_id>")
-def a_function_view_post(function_id: int):
-    admin = utils.models.Admin(id=session["id"]).get(id=session["id"])
-    function = utils.models.Function(id=function_id).get(id=function_id)
+# @app.post("/a/f/<int:function_id>")
+# def a_function_view_post(function_id: int):
+#     admin = utils.models.Admin(id=session["id"]).get(id=session["id"])
+#     function = utils.models.Function(id=function_id).get(id=function_id)
     
 
 
 @app.post("/a/f/<int:function>/delete")
 def a_function_view_delete_post(function_id: int):
-    ...
+    admin = utils.models.Admin(id=session["id"]).get(id=session["id"])
+    function = utils.models.Function(id=function_id).get(id=function_id)
+    function.delete(function_id)
+    flash("Function deleted!", "message")
+    return redirect(url_for("a_functions"))
 
 
 @app.post("/a/f/<int:function_id>/<int:session_id>/delete")
 def a_function_session_delete(function_id: int, session_id: int):
-    ...
+    utils.models.Session(id=session_id).delete(function_id)
+    return redirect(url_for("a_function_view_get", function_id=function_id))
+
+@app.post("/a/f/<int:function_id>/<int:session_id>/end")
+def a_function_session_stop(function_id: int, session_id: int):
+    utils.models.Session(id=session_id).stop(function_id)
+    return redirect(url_for("a_function_view_get", function_id=function_id))
 
 
 
