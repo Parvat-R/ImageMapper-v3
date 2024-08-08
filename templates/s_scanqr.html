@@ -1,11 +1,16 @@
-    <link rel="stylesheet" href="{{ url_for('static',filename='scanQr.css') }}">
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Scan QR{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+   <link rel="stylesheet" href="{{ url_for('static',filename='scanQr.css') }}">
     <input type="number" id="userId" hidden value="{{userId}}" />
     <div style="width: 500px" id="reader"></div>
     <footer>
         <p>© 2024 Photo Studio</p>
     </footer>
-    
-</body>
 <script src="{{ep}}/static/html5-qrcode.min.js"></script>
 <script>
     function onScanSuccess(decodedText, decodedResult) {
@@ -36,4 +41,5 @@
     });
     html5QrcodeScanner.render(onScanSuccess, onScanError);
 </script>
-</html>
+
+{% endblock %}

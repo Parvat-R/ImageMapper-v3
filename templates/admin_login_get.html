@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin @ Photo Studio Login</title>
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Admin @ login{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
     <link rel="stylesheet" href="{{ url_for('static',filename='login.css') }}">
-</head>
-<body>
-
-    
-    {% include "notification.html" %}
-    {% include "nav.html" %}
-
     <div class="container">
         <h1>Photo Studio Login | Admin</h1>
         <form action="" method="POST">
@@ -23,6 +17,5 @@
             <button type="submit">Login As Admin</button>
         </form>
     </div>
-</body>
-</html>
+    {% endblock %}
 
