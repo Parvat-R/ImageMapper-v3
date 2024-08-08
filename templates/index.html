@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Studio</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='index.css') }}"">
+</head>
+<body>
+
+    
+    {% include "notification.html" %}
+    {% include "nav.html" %}
+
+    <section class="intro">
+        <div>
+            <h2>Capturing Moments</h2>
+            <p>Welcome to our photo studio! We specialize in creating beautiful memories.</p>
+        </div>
+        <div>
+          
+            {% if username %}
+                <a href="{{ url_for('s_scanqr') }}" class="btn">Scan A QR</a>
+            {% else %}
+                <a href="{{ url_for('login_get') }}" class="btn">Login</a>
+                <a href="{{ url_for('register_get') }}" class="btn">Register</a>
+            {% endif %}
+        </div>
+    </section>
+    
+    <footer>
+        <p>© 2024 Photo Studio</p>
+    </footer>
+</body>
+</html>

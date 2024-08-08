@@ -15,16 +15,16 @@ app.secret_key = "JOH9cg9g(UG8783eyobO_U_Pz;Jc0y9weubB%ze6DRZcxblMc',]d[\\wek[jh
 def before_each_request():
     if request.path.startswith("/s"):
         if not session.get("id", False):
-            return redirect(url_for("login"))
+            return redirect(url_for("login_get"))
 
     if request.path.startswith("/a"):
         if not session.get("admin_id", False):
-            return redirect(url_for("admin_login"))
+            return redirect(url_for("admin_login_get"))
 
 
 @app.get("/")
 def index():
-    render_template("index.html")
+    return render_template("index.html")
 
 
 @app.get("/login")
@@ -43,6 +43,11 @@ def login_post():
     flash("Student not found!")
     return redirect(url_for("index"))
 
+
+@app.get("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("index"))
 
 
 @app.get("/admin_login")
@@ -70,7 +75,7 @@ def register_get():
 
 @app.post("/register")
 def register_post():
-    rollno = request.form.get("username")
+    rollno = request.form.get("rollno")
     dob = request.form.get("dob")
     exists = utils.models.Student(rollno=rollno).get(rollno=rollno, dob=dob)
     if exists:
@@ -192,5 +197,6 @@ def a_function_session_stop(function_id: int, session_id: int):
 if __name__ == "__main__":
     app.run(
         host = settings.HOST,
-        port = settings.PORT
+        port = settings.PORT,
+        debug=True
     )

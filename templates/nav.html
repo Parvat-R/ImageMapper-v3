@@ -6,9 +6,9 @@
         <a href="{{ url_for('logout') }}">Logout</a>
     {% elif session.get("admin_id", False) %}
         <a href="{{ url_for('a_functions') }}">Functions</a>
-        <a href="{{ url_for('logout') }}">Logout</a>
+        <a href="{{ url_for('logout_get') }}">Logout</a>
     {% else %}
-        <a href="{{ url_for('login') }}">Login</a>
-        <a href="{{ url_for('register') }}">Register</a>
+        <a href="{{ url_for('login_get') }}">Login</a>
+        <a href="{{ url_for('register_get') }}">Register</a>
     {% endif %}
 </nav>

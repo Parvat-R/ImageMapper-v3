@@ -5,14 +5,17 @@
 {% endblock %}
 
 {% block content %}
+    <form action="" method="post">
+        <input type="number" name="function_id" id="function_id" value="" required />
+    </form>
    <link rel="stylesheet" href="{{ url_for('static',filename='scanQr.css') }}">
-    <input type="number" id="userId" hidden value="{{userId}}" />
     <div style="width: 500px" id="reader"></div>
     <footer>
         <p>© 2024 Photo Studio</p>
     </footer>
-<script src="{{ep}}/static/html5-qrcode.min.js"></script>
+<script src="{{ url_for('static', filename='html5-qrcode.min.js') }}"></script>
 <script>
+    console.log(document.forms)
     function onScanSuccess(decodedText, decodedResult) {
         // Handle on success condition with the decoded text or result.
         document.getElementById("reader").remove();
@@ -22,10 +25,7 @@
                 "Accept": "application/json",
                 "Content-Type": "application/json",
             },
-            method: "POST",
-            body: JSON.stringify({
-                userId: document.getElementById("userId").value
-            })
+            method: "POST"
         }).finally(() => {
             window.location = window.location.origin;
         })
