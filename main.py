@@ -127,7 +127,8 @@ def s_scanqr_post():
 
 @app.get("/a/f")
 def a_functions():
-    ...
+    functions = utils.models.Function(id=-1).get_all()
+    return render_template("a_functions.html", functions=functions)
 
 
 @app.get("/a/f/create")

@@ -29,6 +29,14 @@ class DBModel(BaseModel):
         db.close()
         return self
 
+    def get_all(self):
+        table_name = self.__class__.__name__
+        db = sqlite3.connect(settings.DATABASE_FILE)
+        result = db.execute(f"select * from {table_name}")
+        rows = result.fetchall()
+        db.close()
+        return [self.model_construct(self.model_fields_set, **dict(zip(self.model_fields.keys(), row))) for row in rows]
+
     
     def get(self, **kwargs):
         table_name = self.__class__.__name__
