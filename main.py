@@ -6,7 +6,7 @@ from flask import (
 import settings
 
 app = Flask(__name__)
-
+app.secret_key = "JOH9cg9g(UG8783eyobO_U_Pz;Jc0y9weubB%ze6DRZcxblMc',]d[\wek[jh]])"
 
 @app.before_request
 def before_each_request():
