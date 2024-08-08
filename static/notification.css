@@ -1,0 +1,64 @@
+#notification {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: .5em;
+    padding: .5em;
+    z-index: 10000;
+}
+
+.errorContainer, .successContainer {
+    background-image: linear-gradient(#0007, #0007);
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    animation-name: load;
+    animation-duration: 5s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+}
+
+.errorContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #ca0000;
+    font-family: monospace;
+    color: #fffc;
+    padding: .5em 1em;
+    border: 1px solid #0005;
+    border-radius: 10px;
+    width: 90%;
+    font-size: 1.2em;
+}
+
+.successContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #00801c;
+    font-family: monospace;
+    color: #fffc;
+    padding: .5em 1em;
+    border: 1px solid #0005;
+    border-radius: 10px;
+    width: 90%;
+    font-size: 1.2em;
+}
+
+@keyframes load {
+    0% {
+        background-size: 0% 100%;
+    }
+    90% {
+        background-size: 100% 100%;
+        opacity: 1;
+    }
+    100% {
+        background-size: 100% 100%;
+        opacity: 0;
+    }
+}

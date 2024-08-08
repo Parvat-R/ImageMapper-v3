@@ -1,0 +1,18 @@
+<div id="notification">
+    <link rel="stylesheet" href="{{ url_for('static',filename='notification.css') }}"">
+    {% if error %}
+        <div class="errorContainer">
+            <div class="errorMessage">{{ error }}</div>
+        </div>
+    {% endif %}
+    {% if success %}
+        <div class="successContainer">
+            <div class="successMessage">{{ success }}</div>
+        </div>
+    {% endif %}
+    <script>
+        setTimeout(()=>{
+            document.getElementById("notification").remove()
+        }, 5000)
+    </script>
+</div>

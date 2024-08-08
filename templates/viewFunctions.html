@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View All Functions</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='viewFunctions.css') }}">
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% include 'notification.html' %}
+    
+    <div class="container">
+        {% if count%}
+            {% for i in functions %}
+            <div class="functionFile">
+                <div class="functionLinkContainer">
+                    <div class="detail">
+                        <div class="title">
+                            <h2>{{i.name}}</h2>
+                            <h6>{{i.location}}</h6>
+                        </div>
+                        <div class="timeDetails">
+                            <div class="timeBlock">
+                                {{ i.startOn.strftime('%d %B %Y') }}<br>
+                                {{ i.startOn.strftime('%I:%M:%S %p') }}
+                            </div>
+                            <div class="timeBlock">
+                                {{ i.endOn.strftime('%d %B %Y') }}<br>
+                                {{ i.endOn.strftime('%I:%M:%S %p') }}
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{{ep}}/admin/function/{{ i.id }}/addSession" class="functionLink">View</a>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <h1>No Functions! <a href="{{ep}}/admin/function/new">Click here</a> to create one!</h1>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -3,18 +3,16 @@ from flask import (
     session, send_file, abort, Flask,
     request, flash, get_flashed_messages
 )
-# import settings
 
 app = Flask(__name__)
-# app.secret_key = settings.SECRET_KEY
 
 @app.before_request
 def before_each_request():
-    if request.endpoint.startswith("/s"):
+    if request.path.startswith("/s"):
         if not session.get("id", False):
             return redirect(url_for("login"))
 
-    if request.endpoint.startswith("/a"):
+    if request.path.startswith("/a"):
         if not session.get("admin_id", False):
             return redirect(url_for("admin_login"))
 
@@ -111,16 +109,5 @@ def a_function_delete(function_id: int):
     flash("Function deleted successfully!")
     return redirect(url_for("a_functions"))
 
-
-@app.route("/a/f/<int:function_id>/<int:session_id>/delete", methods=["POST"])
-def a_function_session_delete(function_id: int, session_id: int):
-    # delete function session
-    flash("Function session deleted successfully!")
-    return redirect(url_for("a_function_view", function_id=function_id))
-
-
-if __name__ == "__main__":
-    app.run(
-        host="localhost",
-        port="8080"
-    )
+if __name__=="__main__":
+    app.run(debug=True)

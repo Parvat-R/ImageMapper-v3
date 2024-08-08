@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>404 Error</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='404.css') }}">
 </head>
+
 <body>
-    
+    <h1>404 Error</h1>
+    <h2>The requested URL was not found on this server.</h2>
+    <ul>
+        <li>Check the URL for any typos or errors.</li>
+        <li>Try searching for the page you were looking for.</li>
+        <li>If you're the site owner, ensure that the page exists and is properly configured.</li>
+    </ul>
 </body>
 </html>
