@@ -1,0 +1,93 @@
+.container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 10px 0;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.functionLinkContainer {
+    position: relative;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    background: #fff8e9;
+    border-radius: 10px;
+}
+
+.functionFile {
+    display: flex;
+    align-items: center;
+}
+
+.functionFile a.functionLink {
+    position: relative;
+    text-align: center;
+    background: #fff8e9;
+    padding: .5em 2em;
+    border: 1px solid;
+    color: #188892;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: .3s;
+    margin: 20px 0 0 0;
+}
+
+a.functionLink:hover {
+    background: #188892;
+    color: #ffebc0;
+    text-decoration: none;
+}
+
+
+.existingSessions {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 20em;
+    flex-wrap: wrap;
+    padding: 1em;
+    max-height: 60%;
+    overflow: hidden auto;
+}
+
+.functionFile .title h2 {
+    margin: 0;
+    line-height: 35px;
+    color: #514339;
+    font-size: 32px;
+}
+
+.functionFile .title h6 {
+    margin: 0;
+    font-size: 15px;
+    color: #574437;
+}
+
+.functionFile .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.detail {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.timeDetails {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    gap: 30px;
+    color: #68574a;
+}
