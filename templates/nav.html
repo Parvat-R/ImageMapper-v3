@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='nav.css') }}">
+<nav id="nav">
+    <a href="{{ url_for('index') }}">Home</a>
+    {% if session.get("id", False) %}
+        <a href="{{ url_for('s_functions') }}">Functions</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    {% elif session.get("admin_id", False) %}
+        <a href="{{ url_for('a_functions') }}">Functions</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('register') }}">Register</a>
+    {% endif %}
+</nav>
