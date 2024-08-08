@@ -99,7 +99,18 @@ class Session(BaseModel):
         db.close()
     
     
+    def get_previous_start_time(self, function_id, id=-1):
+        id = id if id != -1 else self.id
+        db = sqlite3.connect(session_sql_path(function_id))
+        result = db.execute(f"select start_time from Sessions where id < ? order by id desc limit 1", (id,))
+        row = result.fetchone()
+        db.close()
+        if row:
+            return row[0]
+        return datetime.datetime.now()
+
     def start(self, function_id: int):
+        self.start_time = self.get_previous_start_time(function_id)
         db = sqlite3.connect(session_sql_path(function_id))
         db.execute(f"insert into Sessions (rollno, start_time) values (?, ?)", (self.rollno, self.start_time))
         db.commit()
