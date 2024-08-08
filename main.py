@@ -47,8 +47,8 @@ def login_post():
 
 @app.get("/admin_login")
 def admin_login_get():
-    
-    ...
+    return render_template("admin_login.html")
+
 
 @app.post("/admin_login")
 def admin_login_post():
@@ -109,7 +109,7 @@ def s_function_view(function_id: int):
 
 @app.get("/s/scanqr")
 def s_scanqr_get():
-    ...
+    return render_template("s_scanqr.html")
 
 
 @app.post("/s/scanqr")
