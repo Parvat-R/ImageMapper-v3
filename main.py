@@ -30,6 +30,7 @@ def login_get():
 
 @app.post("/login")
 def login_post():
+    redirect("")
     ...
 
 
@@ -60,6 +61,7 @@ def s_index():
 
 @app.get("/s/f")
 def s_functions():
+    ...
     
 
 @app.get("/s/f/<int:function_id>")

@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View All Functions</title>
+
+
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}View All Functions{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
     <link rel="stylesheet" href="{{ url_for('static',filename='viewFunctions.css') }}">
-</head>
-<body>
-    {% include 'nav.html' %}
-    {% include 'notification.html' %}
-    
     <div class="container">
         {% if count%}
             {% for i in functions %}
@@ -39,5 +37,4 @@
             <h1>No Functions! <a href="{{ep}}/admin/function/new">Click here</a> to create one!</h1>
         {% endif %}
     </div>
-</body>
-</html>
+{% endblock %}

@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scan QR</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='scanQr.css') }}">
-    
-</head>
-
-<body>
-    {% include "notification.html" %} {% include "nav.html" %}
-    
     <input type="number" id="userId" hidden value="{{userId}}" />
     <div style="width: 500px" id="reader"></div>
     <footer>
