@@ -1,57 +1,126 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_sqlalchemy import SQLAlchemy
+from flask import (
+    render_template, redirect, url_for, 
+    session, send_file, abort, Flask,
+    request, flash, get_flashed_messages
+)
+# import settings
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret_key_here'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-db = SQLAlchemy(app)
+# app.secret_key = settings.SECRET_KEY
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique=True, nullable=False)
-    date_of_birth = db.Column(db.Date, nullable=False)
+@app.before_request
+def before_each_request():
+    if request.endpoint.startswith("/s"):
+        if not session.get("id", False):
+            return redirect(url_for("login"))
 
-    def __init__(self, username, date_of_birth):
-        self.username = username
-        self.date_of_birth = date_of_birth
+    if request.endpoint.startswith("/a"):
+        if not session.get("admin_id", False):
+            return redirect(url_for("admin_login"))
 
-@app.route('/')
+
+@app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        date_of_birth = request.form['date_of_birth']
-        user = User(username, date_of_birth)
-        db.session.add(user)
-        db.session.commit()
-        flash('User created successfully!')
-        return redirect(url_for('login'))
-    return render_template('register.html')
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        date_of_birth = request.form['date_of_birth']
-        user = User.query.filter_by(username=username, date_of_birth=date_of_birth).first()
-        if user:
-            flash('Logged in successfully!')
-            return redirect(url_for('dashboard'))
-        else:
-            flash('Invalid username or date of birth')
-    return render_template('login.html')
+    if request.method == "POST":
+        username = request.form["username"]
+        date_of_birth = request.form["date_of_birth"]
+        # validate username and date of birth
+        # if valid, log in user and redirect to /s
+        session["id"] = username
+        flash("Logged in successfully!")
+        return redirect(url_for("s_index"))
+    return render_template("login.html")
 
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
 
-@app.route('/logout')
-def logout():
-    flash('Logged out successfully!')
-    return redirect(url_for('index'))
+@app.route("/admin_login", methods=["GET", "POST"])
+def admin_login():
+    if request.method == "POST":
+        username = request.form["username"]
+        date_of_birth = request.form["date_of_birth"]
+        # validate username and date of birth
+        # if valid, log in admin and redirect to /a
+        session["admin_id"] = username
+        flash("Logged in successfully!")
+        return redirect(url_for("a_functions"))
+    return render_template("admin_login.html")
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        username = request.form["username"]
+        date_of_birth = request.form["date_of_birth"]
+        # validate username and date of birth
+        # if valid, create new user and redirect to /login
+        flash("User created successfully!")
+        return redirect(url_for("login"))
+    return render_template("register.html")
+
+
+@app.route("/s")
+def s_index():
+    return render_template("s_index.html")
+
+
+@app.route("/s/f")
+def s_functions():
+    return render_template("s_functions.html")
+
+
+@app.route("/s/f/<int:function_id>")
+def s_function_view(function_id: int):
+    # retrieve function details from database
+    # render function view template
+    return render_template("s_function_view.html")
+
+
+@app.route("/s/scanqr")
+def s_scanqr():
+    return render_template("s_scanqr.html")
+
+
+@app.route("/a/f")
+def a_functions():
+    return render_template("a_functions.html")
+
+
+@app.route("/a/f/create", methods=["GET", "POST"])
+def a_function_create():
+    if request.method == "POST":
+        # create new function
+        flash("Function created successfully!")
+        return redirect(url_for("a_functions"))
+    return render_template("a_function_create.html")
+
+
+@app.route("/a/f/<int:function_id>")
+def a_function_view(function_id: int):
+    # retrieve function details from database
+    # render function view template
+    return render_template("a_function_view.html")
+
+
+@app.route("/a/f/<int:function_id>/delete", methods=["POST"])
+def a_function_delete(function_id: int):
+    # delete function
+    flash("Function deleted successfully!")
+    return redirect(url_for("a_functions"))
+
+
+@app.route("/a/f/<int:function_id>/<int:session_id>/delete", methods=["POST"])
+def a_function_session_delete(function_id: int, session_id: int):
+    # delete function session
+    flash("Function session deleted successfully!")
+    return redirect(url_for("a_function_view", function_id=function_id))
+
+
+if __name__ == "__main__":
+    app.run(
+        host="localhost",
+        port="8080"
+    )

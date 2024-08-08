@@ -60,7 +60,7 @@ def s_index():
 
 @app.get("/s/f")
 def s_functions():
-    ...
+    
 
 @app.get("/s/f/<int:function_id>")
 def s_function_view(function_id: int):
