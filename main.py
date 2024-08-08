@@ -35,6 +35,17 @@ def register_post():
 
 @app.get("/s")
 def s_index():
+    ...
+
+
+@app.get("/s/f")
+def s_functions():
+    ...
+
+@app.get("/s/f/<int:function_id>")
+def s_function_view():
+    ...
+
 
 if __name__ == "__main__":
     app.run(
