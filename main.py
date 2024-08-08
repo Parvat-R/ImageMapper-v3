@@ -154,7 +154,7 @@ def a_function_view_get(function_id: int):
         session.clear()
         flash("Admin not found!")
         return redirect(url_for("a_login"))
-    
+
     function = utils.models.Function(id=function_id).get(id=function_id)
     function_sessions = utils.models.Session.get_all(function_id)
     return render_template("a_function_view.html", function=function, function_sessions=function_sessions)
