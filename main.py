@@ -162,7 +162,9 @@ def a_function_view_get(function_id: int):
 
 @app.post("/a/f/<int:function_id>")
 def a_function_view_post(function_id: int):
-    ...
+    admin = utils.models.Admin(id=session["id"]).get(id=session["id"])
+    function = utils.models.Function(id=function_id).get(id=function_id)
+    
 
 
 @app.post("/a/f/<int:function>/delete")
